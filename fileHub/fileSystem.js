@@ -43,7 +43,7 @@ function inspectAndDescribeFile(filePath, cb) {
 
 
 function inspectAndDescribeFiles(folderPath, files, cb) {
-	console.log("Inspecting and describing files");
+	//console.log("Inspecting and describing files");
 	async.map(files, (file, asyncCb) => {
 		let resolvedFilePath = path.resolve(folderPath, file);
 		inspectAndDescribeFile(resolvedFilePath, asyncCb);

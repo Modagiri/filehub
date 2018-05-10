@@ -34,19 +34,18 @@ function loadDirectory(folderPath) {
 		}
 
 		search.resetIndex();
-
 		// vis mappeadresen
 		displayFolderPath(folderPath);
-		console.log("Gonna display folderpath");
+		//console.log("Gonna display folderpath");
 		// vis alle mapper og filer 
 		fileSystem.getFilesInFolder(folderPath, (err, files) => {
 			clearView();
 			if(err) {
 				return alert('Kunne ikke hente mappe');
 			}
-			console.log("Gonna inspect and describe files");
+			//console.log("Gonna inspect and describe files");
 			fileSystem.inspectAndDescribeFiles(folderPath, files, displayFiles);
-			console.log("Line 49 in loadDirectory");
+			//console.log("Line 49 in loadDirectory");
 		});
 	};
 }
@@ -54,23 +53,22 @@ function loadDirectory(folderPath) {
 
 
 function displayFile(file) {
-	console.log("Inside displayFile");
+	//console.log("Inside displayFile");
 	const mainArea = document.getElementById('main-area');
 	const template = document.querySelector('#item-template');
 	let clone = document.importNode(template.content, true);
 
-	search.resetIndex(file);
 	clone.querySelector('img').src = `images/${file.type}.svg`;
 	clone.querySelector('img').setAttribute('data-filePath', file.path);
 	if(file.type === 'directory') {
-		console.log("Found directory");
+		//console.log("Found directory");
 		clone.querySelector('img')
 			.addEventListener('dblclick', () => {
 				loadDirectory(file.path)();
 			}, false);
 	}
 	else {
-		console.log("Found file");
+		//console.log("Found file");
 		clone.querySelector('img')
 			.addEventListener('dblclick', () => {
 				fileSystem.openFile(file.path);
@@ -99,9 +97,12 @@ function bindCurrentFolderPath() {
 //
 function displayFiles(err, files) {
 	console.log("displayFiles");
+	search.resetIndex();
 	if(err) {
 		return alert('Kan ikke vise filer');
 	}
+	console.log("Adding files to searchindex");
+	search.addToIndex(files);
 	files.forEach(displayFile);
 }
 

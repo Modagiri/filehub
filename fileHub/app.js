@@ -16,6 +16,7 @@ function main() {
 			userInterface.resetFilter();
 		}
 		else {
+			console.log("Calling search.find from main");
 			search.find(query, userInterface.filterResults);
 		}
 	});
